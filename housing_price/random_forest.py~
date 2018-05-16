@@ -1,0 +1,56 @@
+import numpy as np
+import pandas as pd
+import sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+#import the random forest model
+from sklearn import preprocessing 
+#used for lable encoding and importing NaNs
+
+import datetime as dt
+#we will need this to convert the date to a number of days since some point
+from sklean.tree import export_graphviz
+#import pydotplus
+import six 
+
+import matplotlib.pyplot as plt
+
+
+df_train = pd.read_csv('input/train.csv', parse_dates=['timestamp'])
+df_test = pd.read_csv('input/test.csv', parse_dates=['timestamp'])
+df_macro = pd.read_csv('input/macro.csv', parse_dates=['timestamp'])
+df_train.head()
+
+
+#convert the date into a number 
+#deal with missing values
+
+#create a vector containing the id's  for our preditions 
+id_test = df_test.id
+#create a target variable in the training set 
+#trasfrom the target variable so that loss function is correct 
+#i.e we use RMSE on transformed to get RMLSE
+#yloglp_train will be log(1+y)
+
+
+yloglp_train = np.loglp(df_train['preice_doc'].values)
+df.train = df_train.drop(['price_doc'], axis=1)
+
+#creat joint train and test set to make data wrangling 
+#quicker and consistant on train and test 
+df_train['trainOrtest'] = 'train'
+df_tets['trainOrtest'] ='test'
+df_all  =pd.concat([df_train, df_test])
+df_all = df_all.drop("id", axis=1)
+#convert the data into a number(of days since some point)
+fromDate = min(df_all['timestamp'])
+df_all['tiemdelta'] = (df_all['timestamp'] - fromDate).dt.day.astype(int)
+print(df_all['timestamp','timedelta'])
+df_all.drop('timestamp', axis = 1, inplace = True)
+
+# assigning a numeric value to each categorical feature in theh training and test sets 
+
+for c in df_all.columns:
+	if df_all[c].dtype =='object':
+		1b1 = preprocessing.LabelEncoder()
+		1b1.fit(list(df_all[c].values ))
+		df_all[c] = 1b1.transform(list(df_all[c].values))
