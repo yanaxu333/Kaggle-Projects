@@ -1,3 +1,6 @@
 If the dataset is very big, here is the answer to process the data
 
 https://stackoverflow.com/questions/23872942/sklearn-and-large-datasets
+
+
+https://medium.com/@kaal_daari/machine-learning-on-large-datasets-do-i-really-need-spark-831f93f4a51d
